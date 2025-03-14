@@ -20,10 +20,11 @@ class _RegisterFormState extends State<RegisterForm> {
     if (!formKey.currentState!.validate()) return;
     FocusScope.of(context).unfocus();
 
-    if (passwordController.text.trim() != confirmPasswordController.text.trim()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Passwords do not match')),
-      );
+    if (passwordController.text.trim() !=
+        confirmPasswordController.text.trim()) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Passwords do not match')));
       return;
     }
 
@@ -65,14 +66,19 @@ class _RegisterFormState extends State<RegisterForm> {
                   _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
                 ),
                 onPressed:
-                    () => setState(() => _isPasswordVisible = !_isPasswordVisible),
+                    () => setState(
+                      () => _isPasswordVisible = !_isPasswordVisible,
+                    ),
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            validator: (value) =>
-                value!.length < 6 ? 'Password must be at least 6 characters' : null,
+            validator:
+                (value) =>
+                    value!.length < 6
+                        ? 'Password must be at least 6 characters'
+                        : null,
           ),
           const SizedBox(height: 15),
           TextFormField(
@@ -85,33 +91,33 @@ class _RegisterFormState extends State<RegisterForm> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            validator: (value) =>
-                value!.isEmpty ? 'Confirm your password' : null,
+            validator:
+                (value) => value!.isEmpty ? 'Confirm your password' : null,
           ),
           const SizedBox(height: 20),
           isLoading
               ? const CircularProgressIndicator()
               : ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0XFF464D81),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 12,
-                      horizontal: 32,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0XFF464D81),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 32,
                   ),
-                  onPressed: _submit,
-                  child: const Text(
-                    'REGISTER',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
+                onPressed: _submit,
+                child: const Text(
+                  'REGISTER',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
         ],
       ),
     );
