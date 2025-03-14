@@ -1,9 +1,9 @@
+import 'package:competify_app/pages/home/widgets/bottom_nav_bar';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:competify_app/services/firebase_service.dart';
-import 'package:competify_app/pages/auth/auth_page.dart';
-import 'package:competify_app/pages/home/home_page.dart';
+import 'package:competify_app/pages/auth/auth_page.dart'; // Pastikan path benar
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()),
             );
           }
-          return snapshot.hasData ? const HomePage() : const AuthPage();
+          return snapshot.hasData ? const BottomNavBar() : const AuthPage();
         },
       ),
     );
