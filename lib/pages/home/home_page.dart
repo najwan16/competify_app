@@ -1,4 +1,4 @@
-import 'package:competify_app/pages/home/widgets/bottom_nav_bar';
+import 'package:competify_app/pages/home/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
     }
   }
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -59,19 +59,21 @@ class HomePage extends StatelessWidget {
                 const SizedBox(height: 16),
                 const SearchBarWidget(),
                 const SizedBox(height: 10),
-                const CategoryList(),
+                const CategoryList(), // Menggunakan daftar kategori 
               ],
             ),
           ),
           const SizedBox(height: 16),
-          const Expanded(
-            child: Center(
-              child: Text("Isi Konten", style: TextStyle(fontSize: 20)),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(16),
+              children: const [
+                Text("Isi Konten", style: TextStyle(fontSize: 20)),
+              ],
             ),
           ),
         ],
       ),
-      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

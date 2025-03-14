@@ -1,13 +1,16 @@
-import 'package:competify_app/pages/home/widgets/bottom_nav_bar';
+import 'package:competify_app/pages/home/widgets/bottom_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:competify_app/services/firebase_service.dart';
-import 'package:competify_app/pages/auth/auth_page.dart'; // Pastikan path benar
+import 'package:competify_app/pages/auth/auth_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FirebaseService.initializeFirebase();
+  try {
+    await FirebaseService.initializeFirebase();
+  } catch (e) {
+    debugPrint('Error initializing Firebase: $e');
+  }
   runApp(const MyApp());
 }
 

@@ -1,9 +1,8 @@
+import 'package:competify_app/pages/home/matching_page.dart';
+import 'package:competify_app/pages/home/profile_page.dart';
+import 'package:competify_app/pages/home/progress_page.dart';
 import 'package:flutter/material.dart';
 import 'package:competify_app/pages/home/home_page.dart';
-import 'package:competify_app/pages/progress_page.dart';
-import 'package:competify_app/pages/matching_page.dart';
-import 'package:competify_app/pages/profile_page.dart';
-
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
@@ -30,7 +29,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex], // Menampilkan halaman sesuai index
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const [
