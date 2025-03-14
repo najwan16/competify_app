@@ -18,7 +18,7 @@ class _LoginFormState extends State<LoginForm> {
   Future<void> _submit() async {
     if (!formKey.currentState!.validate()) return;
     FocusScope.of(context).unfocus();
-    
+
     setState(() => isLoading = true);
     await AuthController.signIn(
       emailController.text.trim(),
@@ -39,7 +39,9 @@ class _LoginFormState extends State<LoginForm> {
             decoration: InputDecoration(
               hintText: 'Email',
               prefixIcon: const Icon(Icons.person_outlined),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
             validator: (value) => value!.isEmpty ? 'Enter your email' : null,
           ),
@@ -51,20 +53,48 @@ class _LoginFormState extends State<LoginForm> {
               hintText: 'Password',
               prefixIcon: const Icon(Icons.lock_open),
               suffixIcon: IconButton(
-                icon: Icon(_isPasswordVisible ? Icons.visibility : Icons.visibility_off),
-                onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
+                icon: Icon(
+                  _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                ),
+                onPressed:
+                    () => setState(
+                      () => _isPasswordVisible = !_isPasswordVisible,
+                    ),
               ),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
-            validator: (value) => value!.length < 6 ? 'Password must be at least 6 characters' : null,
+            validator:
+                (value) =>
+                    value!.length < 6
+                        ? 'Password must be at least 6 characters'
+                        : null,
           ),
           const SizedBox(height: 20),
           isLoading
               ? const CircularProgressIndicator()
               : ElevatedButton(
-                  onPressed: _submit,
-                  child: const Text('LOGIN'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0XFF464D81),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 32,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
+                onPressed: _submit,
+                child: const Text(
+                  'LOGIN',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
         ],
       ),
     );

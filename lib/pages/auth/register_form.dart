@@ -15,12 +15,18 @@ class _RegisterFormState extends State<RegisterForm> {
   final formKey = GlobalKey<FormState>();
   bool isLoading = false;
   bool _isPasswordVisible = false;
-  bool _isConfirmPasswordVisible = false;
 
   Future<void> _submit() async {
     if (!formKey.currentState!.validate()) return;
     FocusScope.of(context).unfocus();
-    
+
+    if (passwordController.text.trim() != confirmPasswordController.text.trim()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Passwords do not match')),
+      );
+      return;
+    }
+
     setState(() => isLoading = true);
     await AuthController.signUp(
       emailController.text.trim(),
@@ -41,7 +47,9 @@ class _RegisterFormState extends State<RegisterForm> {
             decoration: InputDecoration(
               hintText: 'Email',
               prefixIcon: const Icon(Icons.person_outlined),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
             validator: (value) => value!.isEmpty ? 'Enter your email' : null,
           ),
@@ -53,34 +61,56 @@ class _RegisterFormState extends State<RegisterForm> {
               hintText: 'Password',
               prefixIcon: const Icon(Icons.lock_open),
               suffixIcon: IconButton(
-                icon: Icon(_isPasswordVisible ? Icons.visibility : Icons.visibility_off),
-                onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
+                icon: Icon(
+                  _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                ),
+                onPressed:
+                    () => setState(() => _isPasswordVisible = !_isPasswordVisible),
               ),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
-            validator: (value) => value!.length < 6 ? 'Password must be at least 6 characters' : null,
+            validator: (value) =>
+                value!.length < 6 ? 'Password must be at least 6 characters' : null,
           ),
           const SizedBox(height: 15),
           TextFormField(
             controller: confirmPasswordController,
-            obscureText: !_isConfirmPasswordVisible,
+            obscureText: !_isPasswordVisible,
             decoration: InputDecoration(
               hintText: 'Confirm Password',
-              prefixIcon: const Icon(Icons.lock),
-              suffixIcon: IconButton(
-                icon: Icon(_isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off),
-                onPressed: () => setState(() => _isConfirmPasswordVisible = !_isConfirmPasswordVisible),
+              prefixIcon: const Icon(Icons.lock_outline),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             ),
-            validator: (value) => value != passwordController.text ? 'Passwords do not match' : null,
+            validator: (value) =>
+                value!.isEmpty ? 'Confirm your password' : null,
           ),
           const SizedBox(height: 20),
           isLoading
               ? const CircularProgressIndicator()
               : ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0XFF464D81),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 32,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   onPressed: _submit,
-                  child: const Text('REGISTER'),
+                  child: const Text(
+                    'REGISTER',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
         ],
       ),
