@@ -1,21 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:competify_app/firebase_options.dart';
-import 'package:competify_app/auth_page.dart';
-import 'package:competify_app/home_page.dart';
+import 'package:competify_app/services/firebase_service.dart';
+import 'package:competify_app/pages/auth/auth_page.dart';
+import 'package:competify_app/pages/home/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  } catch (e) {
-    debugPrint('Firebase initialization error: $e');
-  }
-
+  await FirebaseService.initializeFirebase();
   runApp(const MyApp());
 }
 
@@ -57,20 +49,9 @@ class MyApp extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()),
             );
           }
-          if (snapshot.hasData) {
-            return const MyHomePage();
-          }
-          return const AuthPage();
+          return snapshot.hasData ? const HomePage() : const AuthPage();
         },
       ),
-      builder: (context, child) {
-        return MediaQuery(
-          data: MediaQuery.of(
-            context,
-          ).copyWith(textScaler: TextScaler.linear(1.0)),
-          child: child ?? const SizedBox.shrink(),
-        );
-      },
     );
   }
 }
