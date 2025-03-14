@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "906793786",
+    "project_id": "fir-auth-competify-47b22",
+    "storage_bucket": "fir-auth-competify-47b22.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906793786:android:a033e0ed8723f334d9b603",
+        "android_client_info": {
+          "package_name": "com.example.competify_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYbxUteBXtbcDae-8LyRp3akL5cLF-GxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
