@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:competify_app/pages/home/widgets/category_chip.dart';
-import 'package:competify_app/pages/home/widgets/search_bar.dart';
+import 'package:competify_app/pages/widgets/category_chip.dart';
+import 'package:competify_app/pages/widgets/search_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

@@ -1,4 +1,4 @@
-import 'package:competify_app/pages/home/widgets/bottom_nav_bar.dart';
+import 'package:competify_app/pages/widgets/bottom_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:competify_app/services/firebase_service.dart';

@@ -37,6 +37,7 @@ dependencies:
   firebase_core: ^3.12.1
   firebase_auth: ^5.5.1
   google_fonts: ^6.0.0
+  geolocator: ^10.0.0
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/image/compe.png
+    - assets/image/poster.jpg
+    - assets/image/person.jpg
     - assets/icons/Facebook.png
     - assets/icons/Google.png
     - assets/icons/Apple.png

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:competify_app/pages/matching_page.dart';
-import 'package:competify_app/pages/profile_page.dart';
-import 'package:competify_app/pages/progress_page.dart';
+import 'package:competify_app/pages/matching/matching_page.dart';
+import 'package:competify_app/pages/profile/profile_page.dart';
+import 'package:competify_app/pages/progress/progress_page.dart';
 import 'package:competify_app/pages/home/home_page.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -48,10 +48,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildNavItem(Icons.home, 'Home', 0),
+            _buildNavItem(Icons.home_outlined, 'Home', 0),
             _buildNavItem(Icons.bar_chart, 'Progress', 1),
-            _buildNavItem(Icons.group_add, 'Matching', 2),
-            _buildNavItem(Icons.person, 'Profile', 3),
+            _buildNavItem(Icons.person_add_alt, 'Matching', 2),
+            _buildNavItem(Icons.person_pin, 'Profile', 3),
           ],
         ),
       ),

@@ -1,19 +1,41 @@
-import 'package:competify_app/pages/home/widgets/section_navbar.dart';
+import 'package:competify_app/pages/home/lomba/lomba_page.dart';
+import 'package:competify_app/pages/home/mentor/mentor_page.dart';
+import 'package:competify_app/pages/home/team/team_page.dart';
+import 'package:competify_app/pages/widgets/section_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:competify_app/pages/home/widgets/search_bar.dart';
+import 'package:competify_app/pages/widgets/search_bar.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
-  Future<void> _signOut() async {
-    try {
-      await FirebaseAuth.instance.signOut();
-    } catch (e) {
-      print('Error signing out: $e');
-    }
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _pages = [
+    LombaPage(),
+    MentorPage(),
+    const TeamPage(),
+  ];
+
+  void _onNavItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
+
+  // Future<void> _signOut() async {
+  //   try {
+  //     await FirebaseAuth.instance.signOut();
+  //   } catch (e) {
+  //     print('Error signing out: $e');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +46,7 @@ class HomePage extends StatelessWidget {
           // Custom AppBar
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 50),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
             decoration: const BoxDecoration(
               color: Color(0xFF464D81),
               borderRadius: BorderRadius.only(
@@ -54,25 +76,21 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 24), // Placeholder to balance layout
+                    const SizedBox(width: 24), 
                   ],
                 ),
                 const SizedBox(height: 33),
                 const SearchBarWidget(),
                 const SizedBox(height: 10),
-                const SectionNavbar(),
+                SectionNavbar(
+                  onItemSelected: _onNavItemTapped,
+                  selectedIndex: _selectedIndex,
+                ),
               ],
             ),
           ),
           const SizedBox(height: 16),
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(16),
-              children: const [
-                Text("Isi Konten", style: TextStyle(fontSize: 20)),
-              ],
-            ),
-          ),
+          Expanded(child: _pages[_selectedIndex]),
         ],
       ),
     );
