@@ -1,7 +1,7 @@
-import 'package:competify_app/pages/home/widgets/section_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:competify_app/pages/home/widgets/category_chip.dart';
 import 'package:competify_app/pages/home/widgets/search_bar.dart';
 
 class HomePage extends StatelessWidget {
@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
     }
   }
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
           // Custom AppBar
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 50),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
             decoration: const BoxDecoration(
               color: Color(0xFF464D81),
               borderRadius: BorderRadius.only(
@@ -38,29 +38,27 @@ class HomePage extends StatelessWidget {
                 Row(
                   children: [
                     const Icon(
-                      Icons.chevron_left,
+                      Icons.notifications,
                       color: Colors.white,
-                      size: 24,
+                      size: 30,
                     ),
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          "Info Lomba",
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                    const Spacer(),
+                    Text(
+                      "Halo Expert!",
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(width: 24), // Placeholder to balance layout
+                    const SizedBox(width: 8),
+                    const CircleAvatar(radius: 22),
                   ],
                 ),
-                const SizedBox(height: 33),
+                const SizedBox(height: 16),
                 const SearchBarWidget(),
                 const SizedBox(height: 10),
-                const SectionNavbar(),
+                const CategoryList(), 
               ],
             ),
           ),

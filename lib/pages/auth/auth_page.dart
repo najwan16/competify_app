@@ -10,7 +10,8 @@ class AuthPage extends StatefulWidget {
   State<AuthPage> createState() => _AuthPageState();
 }
 
-class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin {
+class _AuthPageState extends State<AuthPage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -26,36 +27,21 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF464D81),
-      body: Center(
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: const Color(0xFF464D81),
+    body: Center(
+      child: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Logo
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/image/compe.png', height: 70),
-                  const SizedBox(width: 10),
-                  const Text(
-                    'Competify',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0XFFE7C24E),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 15),
-
-              // Card untuk Login / Register
               Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
                 shadowColor: Colors.black.withOpacity(0.5),
                 elevation: 5,
                 child: Padding(
@@ -65,12 +51,12 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                     children: [
                       const Text(
                         'Go ahead and set up your account',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w900,
                           color: Color(0xFF464D81),
                         ),
-                        textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 20),
 
@@ -78,7 +64,7 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                       Container(
                         height: 45,
                         decoration: BoxDecoration(
-                          color: Color(0XFFE6E6E6),
+                          color: const Color(0XFFE6E6E6),
                           borderRadius: BorderRadius.circular(25),
                         ),
                         child: TabBar(
@@ -89,21 +75,24 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
                           indicator: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(25),
-                            border: Border.all(color: const Color(0xFF464D81), width: 2),
+                            border: Border.all(
+                              color: const Color(0xFF464D81),
+                              width: 2,
+                            ),
                           ),
-                          tabs: const [Tab(text: 'Log In'), Tab(text: 'Registration')],
+                          tabs: const [
+                            Tab(text: 'Log In'),
+                            Tab(text: 'Registration'),
+                          ],
                         ),
                       ),
 
                       const SizedBox(height: 30),
                       SizedBox(
-                        height: 300, // Tentukan tinggi agar tidak berubah saat switch
+                        height: MediaQuery.of(context).size.height * 0.5,
                         child: TabBarView(
                           controller: _tabController,
-                          children: const [
-                            LoginForm(),
-                            RegisterForm(),
-                          ],
+                          children: const [LoginForm(), RegisterForm()],
                         ),
                       ),
                     ],
@@ -114,6 +103,7 @@ class _AuthPageState extends State<AuthPage> with SingleTickerProviderStateMixin
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }
