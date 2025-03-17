@@ -13,6 +13,7 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0;
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
   final List<Widget> _pages = [
     const HomePage(),
@@ -25,6 +26,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
     setState(() {
       _selectedIndex = index;
     });
+
+    _navigatorKey.currentState?.pushReplacement(
+      MaterialPageRoute(builder: (context) => _pages[index]),
+    );
   }
 
   @override

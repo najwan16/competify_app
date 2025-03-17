@@ -3,7 +3,6 @@ import 'package:competify_app/pages/home/mentor/mentor_page.dart';
 import 'package:competify_app/pages/home/team/team_page.dart';
 import 'package:competify_app/pages/widgets/section_navbar.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:competify_app/pages/widgets/search_bar.dart';
 

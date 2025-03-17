@@ -1,6 +1,8 @@
 import 'package:competify_app/pages/widgets/lomba_card.dart';
+import 'package:competify_app/provider/lomba_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
+import 'lomba_detail_page.dart';
 
 class LombaPage extends StatefulWidget {
   @override
@@ -8,43 +10,8 @@ class LombaPage extends StatefulWidget {
 }
 
 class _LombaPageState extends State<LombaPage> {
-  String filter = 'semua';
   late Stream<DateTime> dateTimeStream;
-
-  List<Map<String, dynamic>> lombaList = [
-    {
-      'imagePath': 'assets/image/poster.jpg',
-      'title': 'NEURON 2025',
-      'organizer': 'Universitas Negeri Malang',
-      'date': DateTime(2025, 7, 8),
-      'status': 'Luring/Offline',
-      'isOnline': false,
-    },
-    {
-      'imagePath': 'assets/image/poster.jpg',
-      'title': 'National Robotics Competition',
-      'organizer': 'Universitas Brawijaya',
-      'date': DateTime(2025, 10, 12),
-      'status': 'Luring/Offline',
-      'isOnline': false,
-    },
-    {
-      'imagePath': 'assets/image/poster.jpg',
-      'title': 'Startup Pitching Competition',
-      'organizer': 'Universitas Brawijaya',
-      'date': DateTime(2025, 4, 10),
-      'status': 'Luring/Offline',
-      'isOnline': false,
-    },
-    {
-      'imagePath': 'assets/image/poster.jpg',
-      'title': 'Blockchain Development Hackathon',
-      'organizer': 'Universitas Brawijaya',
-      'date': DateTime(2025, 4, 1),
-      'status': 'Luring/Offline',
-      'isOnline': false,
-    },
-  ];
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -55,126 +22,122 @@ class _LombaPageState extends State<LombaPage> {
     );
   }
 
-  List<Map<String, dynamic>> getFilteredLombaList(DateTime currentDate) {
-    if (filter == 'terdekat') {
-      return lombaList.where((lomba) {
-        final difference = lomba['date'].difference(currentDate).inDays;
-        return difference <= 30 && difference >= 0;
-      }).toList();
-    }
-    return lombaList;
+  void _showLombaDetail(Map<String, dynamic> lomba) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LombaDetailPage(lomba: lomba)),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder<DateTime>(
-        stream: dateTimeStream,
-        builder: (context, snapshot) {
-          final currentDateTime = snapshot.data ?? DateTime.now();
-          return Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 27.0, vertical: 8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0XFF464D81),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              filter = 'semua';
-                            });
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 12),
-                            decoration: BoxDecoration(
-                              color: filter == 'semua'
-                                  ? Color(0XFF464D81)
-                                  : Color(0XFFE3E4EC),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Semua',
-                                style: TextStyle(
-                                  color: filter == 'semua'
-                                      ? Color(0XFFE3E4EC)
-                                      : Color(0XFF464D81),
-                                  fontWeight: filter == 'semua'
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              filter = 'terdekat';
-                            });
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 12),
-                            decoration: BoxDecoration(
-                              color: filter == 'terdekat'
-                                  ? Color(0XFF464D81)
-                                  : Color(0XFFE3E4EC),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Terdekat',
-                                style: TextStyle(
-                                  color: filter == 'terdekat'
-                                      ? Color(0XFFE3E4EC)
-                                      : Color(0XFF464D81),
-                                  fontWeight: filter == 'terdekat'
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                child: ListView(
-                  children: getFilteredLombaList(currentDateTime)
-                      .map(
-                        (lomba) => LombaCard(
-                          imagePath: lomba['imagePath'],
-                          title: lomba['title'],
-                          organizer: lomba['organizer'],
-                          date: lomba['date'],
-                          status: lomba['status'],
-                          isOnline: lomba['isOnline'],
-                          onTap: () {
-                            print(
-                              'Navigasi ke detail lomba: ${lomba['title']}',
-                            );
-                          },
-                          currentDateTime: currentDateTime,
-                        ),
-                      )
-                      .toList(),
-                ),
-              ),
-            ],
-          );
+      body: _buildLombaList(),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
         },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+        ],
       ),
+    );
+  }
+
+  Widget _buildLombaList() {
+    return StreamBuilder<DateTime>(
+      stream: dateTimeStream,
+      builder: (context, snapshot) {
+        final currentDateTime = snapshot.data ?? DateTime.now();
+
+        return Consumer<LombaProvider>(
+          builder: (context, lombaProvider, child) {
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 27.0,
+                    vertical: 8.0,
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0XFF464D81),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Row(
+                      children: [
+                        _buildFilterButton('Semua', 'semua'),
+                        _buildFilterButton('Terdekat', 'terdekat'),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ListView(
+                    children:
+                        lombaProvider
+                            .getFilteredLombaList(currentDateTime)
+                            .map(
+                              (lomba) => LombaCard(
+                                imagePath: lomba['imagePath'],
+                                title: lomba['title'],
+                                organizer: lomba['organizer'],
+                                date: lomba['date'],
+                                status: lomba['status'],
+                                isOnline: lomba['isOnline'],
+                                onTap: () => _showLombaDetail(lomba),
+                                currentDateTime: currentDateTime,
+                              ),
+                            )
+                            .toList(),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Widget _buildFilterButton(String label, String value) {
+    return Consumer<LombaProvider>(
+      builder: (context, lombaProvider, child) {
+        return Expanded(
+          child: GestureDetector(
+            onTap: () => lombaProvider.setFilter(value),
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              decoration: BoxDecoration(
+                color:
+                    lombaProvider.filter == value
+                        ? const Color(0XFF464D81)
+                        : const Color(0XFFE3E4EC),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Center(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    color:
+                        lombaProvider.filter == value
+                            ? const Color(0XFFE3E4EC)
+                            : const Color(0XFF464D81),
+                    fontWeight:
+                        lombaProvider.filter == value
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
