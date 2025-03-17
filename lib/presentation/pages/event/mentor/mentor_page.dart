@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:competify_app/presentation/widgets/appbar_event.dart';
 import 'package:competify_app/presentation/widgets/mentor_card.dart';
 import 'package:competify_app/presentation/provider/mentor_provider.dart';
 
@@ -10,14 +9,6 @@ class MentorPage extends StatefulWidget {
 }
 
 class _MentorPageState extends State<MentorPage> {
-  int _selectedIndex = 1;
-
-  void _onItemSelected(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

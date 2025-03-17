@@ -11,7 +11,7 @@ class LombaPage extends StatefulWidget {
 
 class _LombaPageState extends State<LombaPage> {
   late Stream<DateTime> dateTimeStream;
-  int _selectedIndex = 0;
+  
 
   @override
   void initState() {

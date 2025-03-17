@@ -1,5 +1,4 @@
 import 'package:competify_app/presentation/pages/event/event_page.dart';
-import 'package:competify_app/presentation/pages/event/lomba/lomba_page.dart';
 import 'package:competify_app/presentation/pages/home/home_page.dart';
 import 'package:competify_app/presentation/pages/matching/matching_page.dart';
 import 'package:flutter/material.dart';

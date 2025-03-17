@@ -32,7 +32,7 @@ class CustomAppBar extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.chevron_left, color: Colors.white, size: 24),
+              // const Icon(Icons.chevron_left, color: Colors.white, size: 24),
               Expanded(
                 child: Center(
                   child: Text(
