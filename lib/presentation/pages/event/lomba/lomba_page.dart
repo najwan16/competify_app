@@ -1,5 +1,5 @@
-import 'package:competify_app/pages/widgets/lomba_card.dart';
-import 'package:competify_app/provider/lomba_provider.dart';
+import 'package:competify_app/presentation/provider/lomba_provider.dart';
+import 'package:competify_app/presentation/widgets/lomba_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'lomba_detail_page.dart';
@@ -31,21 +31,7 @@ class _LombaPageState extends State<LombaPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildLombaList(),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-        ],
-      ),
-    );
+    return Scaffold(body: _buildLombaList());
   }
 
   Widget _buildLombaList() {

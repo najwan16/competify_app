@@ -1,17 +1,21 @@
-import 'package:competify_app/pages/widgets/bottom_nav_bar.dart';
+import 'package:competify_app/firebase_options.dart';
+import 'package:competify_app/presentation/pages/auth/auth_page.dart';
+import 'package:competify_app/presentation/provider/mentor_provider.dart';
+import 'package:competify_app/presentation/widgets/bottom_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:competify_app/services/firebase_service.dart';
-import 'package:competify_app/pages/auth/auth_page.dart';
 import 'package:provider/provider.dart';
-import 'package:competify_app/provider/lomba_provider.dart';
+import 'package:competify_app/presentation/provider/lomba_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
-    await FirebaseService.initializeFirebase();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   } catch (e) {
-    debugPrint('Error initializing Firebase: $e');
+    debugPrint('Firebase initialization error: $e');
   }
   runApp(const MyApp());
 }
@@ -22,7 +26,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => LombaProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => LombaProvider()),
+        ChangeNotifierProvider(create: (context) => MentorProvider()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: StreamBuilder<User?>(
