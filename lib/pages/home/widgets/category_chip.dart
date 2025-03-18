@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CategoryChip extends StatelessWidget {
   final String label;
-
   const CategoryChip({super.key, required this.label});
 
   @override
@@ -16,11 +15,7 @@ class CategoryChip extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: GoogleFonts.poppins(
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-          color: Colors.black, // Pastikan teks terlihat jelas
-        ),
+        style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -31,25 +26,22 @@ class CategoryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16), // Memberi jarak dari sisi layar
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            CategoryChip(label: "UI/UX"),
-            const SizedBox(width: 10),
-            CategoryChip(label: "Debat"),
-            const SizedBox(width: 10),
-            CategoryChip(label: "Business Plan"),
-            const SizedBox(width: 10),
-            CategoryChip(label: "Robotik"),
-            const SizedBox(width: 10),
-            CategoryChip(label: "Menulis"),
-            const SizedBox(width: 10),
-            CategoryChip(label: "Karya Tulis Ilmiah"),
-          ],
-        ),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: const [
+          CategoryChip(label: "UI/UX"),
+          SizedBox(width: 10),
+          CategoryChip(label: "Debat"),
+          SizedBox(width: 10),
+          CategoryChip(label: "Business Plan"),
+          SizedBox(width: 10),
+          CategoryChip(label: "Robotik"),
+          SizedBox(width: 10),
+          CategoryChip(label: "Menulis"),
+          SizedBox(width: 10),
+          CategoryChip(label: "Karya Tulis Ilmiah"),
+        ],
       ),
     );
   }
