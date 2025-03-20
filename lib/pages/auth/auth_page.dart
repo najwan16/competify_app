@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'login_form.dart';
 import 'register_form.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AuthPage extends StatefulWidget {
   static route() => MaterialPageRoute(builder: (context) => const AuthPage());
@@ -34,10 +36,27 @@ Widget build(BuildContext context) {
       child: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.only( bottom: 75, left: 21, right: 21),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const SizedBox(height: 95,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset('assets/image/Logo.svg',
+                  width: 80,
+                  height: 95,),
+                  const SizedBox(width: 13),
+                  Text('Competify',
+                  style: GoogleFonts.poppins(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0XFFF9F1BE),
+                  ),),
+                  const SizedBox(height: 20,)
+                ],
+              ),
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25),
@@ -49,14 +68,14 @@ Widget build(BuildContext context) {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text(
+                      Text(
                         'Go ahead and set up your account',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w900,
-                          color: Color(0xFF464D81),
-                        ),
+                        textAlign: TextAlign.left,
+                        style: GoogleFonts.poppins(
+                        fontSize: 26,
+                        color: Color(0xFF464D81),
+                        fontWeight: FontWeight.bold,
+                      ),
                       ),
                       const SizedBox(height: 20),
 
@@ -81,8 +100,8 @@ Widget build(BuildContext context) {
                             ),
                           ),
                           tabs: const [
-                            Tab(text: 'Log In'),
-                            Tab(text: 'Registration'),
+                            Tab(text: 'Masuk'),
+                            Tab(text: 'Daftar'),
                           ],
                         ),
                       ),

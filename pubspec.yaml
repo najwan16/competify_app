@@ -38,6 +38,7 @@ dependencies:
   firebase_auth: ^5.5.1
   google_fonts: ^6.0.0
   flutter_animate: ^4.5.2
+  flutter_svg: ^2.0.17
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,12 @@ flutter:
     - assets/icons/Facebook.png
     - assets/icons/Google.png
     - assets/icons/Apple.png
+
+    - assets/image/Logo.svg
+    - assets/image/ob1.svg
+    - assets/image/ob2.svg
+    - assets/image/ob3.svg
+    - assets/image/Circle_Grad.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

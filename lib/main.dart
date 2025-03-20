@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
             );
           }
           return snapshot.hasData ? const AuthPage() : const Start();
+          //;
           //BottomNavBar() : const AuthPage();
         },
       ),

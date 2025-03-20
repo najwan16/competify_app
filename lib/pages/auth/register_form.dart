@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'auth_controller.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -24,7 +25,7 @@ class _RegisterFormState extends State<RegisterForm> {
         confirmPasswordController.text.trim()) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('Passwords do not match')));
+      ).showSnackBar(const SnackBar(content: Text('Passwords tidak sesuai')));
       return;
     }
 
@@ -52,14 +53,14 @@ class _RegisterFormState extends State<RegisterForm> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            validator: (value) => value!.isEmpty ? 'Enter your email' : null,
+            validator: (value) => value!.isEmpty ? 'Masukkan Email' : null,
           ),
           const SizedBox(height: 15),
           TextFormField(
             controller: passwordController,
             obscureText: !_isPasswordVisible,
             decoration: InputDecoration(
-              hintText: 'Password',
+              hintText: 'Kata Sandi',
               prefixIcon: const Icon(Icons.lock_open),
               suffixIcon: IconButton(
                 icon: Icon(
@@ -77,7 +78,7 @@ class _RegisterFormState extends State<RegisterForm> {
             validator:
                 (value) =>
                     value!.length < 6
-                        ? 'Password must be at least 6 characters'
+                        ? 'Password harus setidaknya 6 karakters'
                         : null,
           ),
           const SizedBox(height: 15),
@@ -85,14 +86,14 @@ class _RegisterFormState extends State<RegisterForm> {
             controller: confirmPasswordController,
             obscureText: !_isPasswordVisible,
             decoration: InputDecoration(
-              hintText: 'Confirm Password',
+              hintText: 'Konfirmasi Kata Sandi',
               prefixIcon: const Icon(Icons.lock_outline),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
             validator:
-                (value) => value!.isEmpty ? 'Confirm your password' : null,
+                (value) => value!.isEmpty ? 'Konfirmasikan Kata Sandimu' : null,
           ),
           const SizedBox(height: 20),
           isLoading
@@ -101,17 +102,17 @@ class _RegisterFormState extends State<RegisterForm> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0XFF464D81),
                   padding: const EdgeInsets.symmetric(
-                    vertical: 12,
-                    horizontal: 32,
+                    vertical: 20,
+                    horizontal: 132,
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
                 onPressed: _submit,
-                child: const Text(
-                  'REGISTER',
-                  style: TextStyle(
+                child: Text(
+                  'Daftar',
+                  style: GoogleFonts.poppins(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
