@@ -5,7 +5,7 @@ class LombaProvider extends ChangeNotifier {
 
   String get filter => _filter;
 
-  List<Map<String, dynamic>> _lombaList = [
+  final List<Map<String, dynamic>> _lombaList = [
     {
       'imagePath': 'assets/image/poster.jpg',
       'title': 'NEURON 2025',

@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'lomba_detail_page.dart';
 
 class LombaPage extends StatefulWidget {
+  const LombaPage({super.key});
+
   @override
   _LombaPageState createState() => _LombaPageState();
 }

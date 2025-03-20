@@ -1,8 +1,6 @@
 import 'package:competify_app/firebase_options.dart';
-import 'package:competify_app/presentation/pages/auth/auth_page.dart';
+import 'package:competify_app/presentation/pages/start/splash_screen.dart';
 import 'package:competify_app/presentation/provider/mentor_provider.dart';
-import 'package:competify_app/presentation/widgets/bottom_nav_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,17 +30,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: StreamBuilder<User?>(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Scaffold(
-                body: Center(child: CircularProgressIndicator()),
-              );
-            }
-            return snapshot.hasData ? const BottomNavBar() : const AuthPage();
-          },
-        ),
+        home: SplashScreen(),
       ),
     );
   }

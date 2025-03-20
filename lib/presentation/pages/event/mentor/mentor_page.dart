@@ -4,6 +4,8 @@ import 'package:competify_app/presentation/widgets/mentor_card.dart';
 import 'package:competify_app/presentation/provider/mentor_provider.dart';
 
 class MentorPage extends StatefulWidget {
+  const MentorPage({super.key});
+
   @override
   _MentorPageState createState() => _MentorPageState();
 }

@@ -11,7 +11,7 @@ class LombaCard extends StatelessWidget {
   final DateTime currentDateTime;
 
   const LombaCard({
-    Key? key,
+    super.key,
     required this.imagePath,
     required this.title,
     required this.organizer,
@@ -20,7 +20,7 @@ class LombaCard extends StatelessWidget {
     required this.isOnline,
     required this.onTap,
     required this.currentDateTime,
-  }) : super(key: key);
+  });
 
   String _calculateTimeDifference(DateTime eventDate, DateTime currentDate) {
     final difference = eventDate.difference(currentDate);

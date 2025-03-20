@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class LombaDetailPage extends StatefulWidget {
   final Map<String, dynamic> lomba;
 
-  const LombaDetailPage({required this.lomba, Key? key}) : super(key: key);
+  const LombaDetailPage({required this.lomba, super.key});
 
   @override
   _LombaDetailPageState createState() => _LombaDetailPageState();

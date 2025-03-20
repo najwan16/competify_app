@@ -9,14 +9,14 @@ class MentorCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const MentorCard({
-    Key? key,
+    super.key,
     required this.imagePath,
     required this.name,
     required this.university,
     required this.expertise,
     required this.experience,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
