@@ -1,4 +1,5 @@
 import 'package:competify_app/pages/home/widgets/bottom_nav_bar.dart';
+import 'package:competify_app/pages/onboarding/start.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:competify_app/services/firebase_service.dart';
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()),
             );
           }
-          return snapshot.hasData ? const BottomNavBar() : const AuthPage();
+          return snapshot.hasData ? const AuthPage() : const Start();
+          //BottomNavBar() : const AuthPage();
         },
       ),
     );
