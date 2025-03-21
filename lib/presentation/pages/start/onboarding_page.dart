@@ -2,6 +2,7 @@ import 'package:competify_app/presentation/provider/onboarding_data.dart';
 import 'package:competify_app/services/onboarding_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
@@ -65,10 +66,9 @@ class OnBoardingScreen extends StatelessWidget {
                           Text(
                             onboardingItems[controller.currentPage].subtitle,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontFamily: 'Poppins',
+                            style: GoogleFonts.poppins(
+                              color: Color(0XFFF9F1BE),
                               fontSize: 15,
-                              color: Color(0XFF464D81),
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -117,11 +117,10 @@ class OnBoardingScreen extends StatelessWidget {
                                         onboardingItems.length - 1
                                     ? "Mulai"
                                     : "Lanjut",
-                                style: const TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
+                                style:GoogleFonts.poppins(
+                                  color: Color(0XFFF9F1BE),
+                                  fontSize: 36,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
