@@ -1,4 +1,6 @@
 import 'package:competify_app/presentation/pages/event/event_page.dart';
+import 'package:competify_app/presentation/pages/home/widget/event_list.dart';
+import 'package:competify_app/presentation/pages/home/widget/home_header.dart';
 import 'package:competify_app/presentation/pages/matching/matching_page.dart';
 import 'package:competify_app/presentation/pages/profile/profile_page.dart';
 import 'package:competify_app/presentation/pages/progress/progress_page.dart';
@@ -15,13 +17,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
-    const HomePageContent(),
-    const ProgressPage(),
-    EventPage(),
-    const MatchingPage(),
-    const ProfilePage(),
-  ];
+  final List<Widget> _pages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _pages.addAll([
+      HomePageContent(onNavigateToEvent: _onItemTapped),
+      const ProgressPage(),
+      const EventPage(),
+      const MatchingPage(),
+      const ProfilePage(),
+    ]);
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -43,10 +51,46 @@ class _HomePageState extends State<HomePage> {
 }
 
 class HomePageContent extends StatelessWidget {
-  const HomePageContent({super.key});
+  final Function(int) onNavigateToEvent;
+
+  const HomePageContent({super.key, required this.onNavigateToEvent});
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Home Page", style: TextStyle(fontSize: 20)));
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const HomeHeader(),
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Competify Update",
+                  style: TextStyle(
+                    fontSize: 21,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 15),
+                const Text(
+                  "Rekomendasi Event",
+                  style: TextStyle(
+                    fontSize: 21,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
+                ),
+                EventList(onNavigateToEvent: onNavigateToEvent),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:competify_app/presentation/widgets/search_bar.dart';
-import 'package:competify_app/presentation/widgets/section_navbar.dart';
+import 'package:competify_app/presentation/pages/event/widget/section_navbar.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String title;

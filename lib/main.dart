@@ -1,4 +1,5 @@
 import 'package:competify_app/firebase_options.dart';
+import 'package:competify_app/presentation/pages/home/home_page.dart';
 import 'package:competify_app/presentation/pages/start/splash_screen.dart';
 import 'package:competify_app/presentation/provider/mentor_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: HomePage(),
       ),
     );
   }

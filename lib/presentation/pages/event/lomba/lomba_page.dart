@@ -1,5 +1,5 @@
 import 'package:competify_app/presentation/provider/lomba_provider.dart';
-import 'package:competify_app/presentation/widgets/lomba_card.dart';
+import 'package:competify_app/presentation/pages/event/widget/lomba_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'lomba_detail_page.dart';
@@ -25,11 +25,12 @@ class _LombaPageState extends State<LombaPage> {
   }
 
   void _showLombaDetail(Map<String, dynamic> lomba) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => LombaDetailPage(lomba: lomba)),
-    );
-  }
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => LombaDetailPage(lomba: lomba)),
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {

@@ -12,8 +12,33 @@ class LombaDetailPage extends StatefulWidget {
 class _LombaDetailPageState extends State<LombaDetailPage> {
   bool isExpanded = false;
 
+  Widget _buildImage(String imagePath) {
+    if (imagePath.startsWith('http')) {
+      return Image.network(
+        imagePath,
+        width: double.infinity,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return const Icon(Icons.broken_image, size: 100, color: Colors.grey);
+        },
+      );
+    } else {
+      return Image.asset(
+        imagePath,
+        width: double.infinity,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return const Icon(Icons.image_not_supported, size: 100, color: Colors.grey);
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<String> timeline = List<String>.from(widget.lomba['timeline'] ?? []);
+    List<String> rules = List<String>.from(widget.lomba['rules'] ?? []);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.lomba['title']),
@@ -27,11 +52,7 @@ class _LombaDetailPageState extends State<LombaDetailPage> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  widget.lomba['imagePath'],
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
+                child: _buildImage(widget.lomba['imagePath']),
               ),
               const SizedBox(height: 16),
               Text(
@@ -43,7 +64,6 @@ class _LombaDetailPageState extends State<LombaDetailPage> {
               ),
               const SizedBox(height: 16),
 
-             
               GestureDetector(
                 onTap: () {
                   setState(() {
@@ -80,40 +100,33 @@ class _LombaDetailPageState extends State<LombaDetailPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (widget.lomba['timeline'] != null) ...[
+                      if (timeline.isNotEmpty) ...[
                         const Text(
                           "Timeline:",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        ...widget.lomba['timeline']
-                            .map<Widget>((item) => Text("- $item"))
-                            .toList(),
+                        ...timeline.map((item) => Text("- $item")).toList(),
                         const SizedBox(height: 8),
                       ],
-                      if (widget.lomba['rules'] != null) ...[
+                      if (rules.isNotEmpty) ...[
                         const Text(
                           "Ketentuan:",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        ...widget.lomba['rules']
-                            .map<Widget>((rule) => Text("- $rule"))
-                            .toList(),
+                        ...rules.map((rule) => Text("- $rule")).toList(),
                       ],
                     ],
                   ),
                 ),
                 crossFadeState:
-                    isExpanded
-                        ? CrossFadeState.showSecond
-                        : CrossFadeState.showFirst,
+                    isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
               ),
 
               const SizedBox(height: 16),
 
-              
               if (widget.lomba['additionalInfo'] != null) ...[
                 const Text(
-                  "Additional Information",
+                  "Informasi Tambahan",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),

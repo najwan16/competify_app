@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:competify_app/presentation/widgets/mentor_card.dart';
+import 'package:competify_app/presentation/pages/event/widget/mentor_card.dart';
 import 'package:competify_app/presentation/provider/mentor_provider.dart';
 
 class MentorPage extends StatefulWidget {

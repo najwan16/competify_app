@@ -10,13 +10,17 @@ class BottomNavBar extends StatelessWidget {
     required this.onItemTapped,
   });
 
+  static const Color backgroundColor = Color(0xFF464D81);
+  static const Color selectedColor = Color(0xFFF9F1BE);
+  static const Color unselectedColor = Color(0XFFBFBFBF);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       decoration: BoxDecoration(
-        color: const Color(0xFF464D81),
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(50),
         boxShadow: [
           BoxShadow(
@@ -46,11 +50,12 @@ class BottomNavBar extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 250),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             decoration: isSelected
                 ? BoxDecoration(
-                    color: const Color(0XFFF9F1BE),
+                    color: selectedColor,
                     borderRadius: BorderRadius.circular(20),
                   )
                 : null,
@@ -59,17 +64,13 @@ class BottomNavBar extends StatelessWidget {
                 Icon(
                   icon,
                   size: 28,
-                  color: isSelected
-                      ? const Color(0xFF464D81)
-                      : const Color(0XFFBFBFBF),
+                  color: isSelected ? backgroundColor : unselectedColor,
                 ),
                 const SizedBox(height: 2),
                 Text(
                   label,
                   style: TextStyle(
-                    color: isSelected
-                        ? const Color(0xFF464D81)
-                        : const Color(0XFFBFBFBF),
+                    color: isSelected ? backgroundColor : unselectedColor,
                     fontSize: 11,
                     fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                   ),
