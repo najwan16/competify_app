@@ -59,8 +59,8 @@ class _LombaPageState extends State<LombaPage> {
                     ),
                     child: Row(
                       children: [
-                        _buildFilterButton('Semua', 'semua'),
-                        _buildFilterButton('Terdekat', 'terdekat'),
+                        _buildFilterButton('Online', 'online'),
+                        _buildFilterButton('Offline', 'offline'),
                       ],
                     ),
                   ),

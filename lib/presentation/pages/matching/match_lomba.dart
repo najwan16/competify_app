@@ -3,14 +3,9 @@ import 'package:competify_app/presentation/pages/matching/widgets/match_button.d
 import 'package:flutter/material.dart';
 
 class MatchGroupLomba extends StatelessWidget {
-  final String imagePath;
-  final String title;
+  final Map<String, dynamic> lombaData; // Menerima seluruh data lomba
 
-  const MatchGroupLomba({
-    required this.imagePath,
-    required this.title,
-    super.key,
-  });
+  const MatchGroupLomba({required this.lombaData, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +18,20 @@ class MatchGroupLomba extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           child: Column(
-            mainAxisSize: MainAxisSize.min, // Supaya tidak memenuhi layar penuh
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.asset(imagePath, width: 280, fit: BoxFit.cover),
+                child: Image.asset(
+                  lombaData['imagePath'],
+                  width: 280,
+                  fit: BoxFit.cover,
+                ),
               ),
               const SizedBox(height: 16),
               Text(
-                title,
+                lombaData['title'],
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -52,10 +51,11 @@ class MatchGroupLomba extends StatelessWidget {
                 icon: Icons.add_circle,
                 color: Colors.green,
                 onPressed: () {
-                 
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const CreateMatch()),
+                    MaterialPageRoute(
+                      builder: (context) => CreateMatch(lombaData: lombaData),
+                    ),
                   );
                 },
               ),

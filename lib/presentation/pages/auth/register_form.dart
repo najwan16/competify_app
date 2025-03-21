@@ -9,6 +9,7 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
+  final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -20,16 +21,16 @@ class _RegisterFormState extends State<RegisterForm> {
     if (!formKey.currentState!.validate()) return;
     FocusScope.of(context).unfocus();
 
-    if (passwordController.text.trim() !=
-        confirmPasswordController.text.trim()) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Passwords do not match')));
+    if (passwordController.text.trim() != confirmPasswordController.text.trim()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Passwords do not match')),
+      );
       return;
     }
 
     setState(() => isLoading = true);
     await AuthController.signUp(
+      usernameController.text.trim(),
       emailController.text.trim(),
       passwordController.text.trim(),
       context,
@@ -44,10 +45,22 @@ class _RegisterFormState extends State<RegisterForm> {
       child: Column(
         children: [
           TextFormField(
+            controller: usernameController,
+            decoration: InputDecoration(
+              hintText: 'Username',
+              prefixIcon: const Icon(Icons.person),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            validator: (value) => value!.isEmpty ? 'Enter your username' : null,
+          ),
+          const SizedBox(height: 15),
+          TextFormField(
             controller: emailController,
             decoration: InputDecoration(
               hintText: 'Email',
-              prefixIcon: const Icon(Icons.person_outlined),
+              prefixIcon: const Icon(Icons.email_outlined),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -65,20 +78,13 @@ class _RegisterFormState extends State<RegisterForm> {
                 icon: Icon(
                   _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
                 ),
-                onPressed:
-                    () => setState(
-                      () => _isPasswordVisible = !_isPasswordVisible,
-                    ),
+                onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            validator:
-                (value) =>
-                    value!.length < 6
-                        ? 'Password must be at least 6 characters'
-                        : null,
+            validator: (value) => value!.length < 6 ? 'Password must be at least 6 characters' : null,
           ),
           const SizedBox(height: 15),
           TextFormField(
@@ -91,33 +97,32 @@ class _RegisterFormState extends State<RegisterForm> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            validator:
-                (value) => value!.isEmpty ? 'Confirm your password' : null,
+            validator: (value) => value!.isEmpty ? 'Confirm your password' : null,
           ),
           const SizedBox(height: 20),
           isLoading
               ? const CircularProgressIndicator()
               : ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0XFF464D81),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 12,
-                    horizontal: 32,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0XFF464D81),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 32,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                  onPressed: _submit,
+                  child: const Text(
+                    'REGISTER',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-                onPressed: _submit,
-                child: const Text(
-                  'REGISTER',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
         ],
       ),
     );

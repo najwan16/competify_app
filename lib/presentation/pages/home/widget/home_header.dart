@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class HomeHeader extends StatelessWidget {
-  const HomeHeader({super.key});
+  final String username; // Tambahkan parameter username
+
+  const HomeHeader({super.key, required this.username});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal:48, vertical: 36),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 36),
+      decoration: const BoxDecoration(
         color: Color(0xFF464A7E),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(50),
@@ -20,7 +22,7 @@ class HomeHeader extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(Icons.notifications, color: Colors.white, size: 24),
+              const Icon(Icons.notifications, color: Colors.white, size: 24),
 
               Row(
                 children: [
@@ -28,8 +30,8 @@ class HomeHeader extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "Jenni Will",
-                        style: TextStyle(
+                        username, // Menggunakan username yang dinamis
+                        style: const TextStyle(
                           color: Color(0XFFF9F1BE),
                           fontSize: 14,
                           fontWeight: FontWeight.w700,
@@ -37,8 +39,8 @@ class HomeHeader extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(width: 10),
-                  CircleAvatar(
+                  const SizedBox(width: 10),
+                  const CircleAvatar(
                     radius: 22,
                     backgroundImage: AssetImage("assets/images/profile.jpg"),
                   ),
@@ -47,9 +49,9 @@ class HomeHeader extends StatelessWidget {
             ],
           ),
 
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
 
-          Text(
+          const Text(
             "Competify",
             style: TextStyle(
               color: Color(0XFFF9F1BE),
@@ -57,19 +59,19 @@ class HomeHeader extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Text(
+          const Text(
             "Selamat datang calon juara!",
             style: TextStyle(color: Color(0XFFF9F1BE), fontSize: 16),
           ),
 
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
 
           TextField(
             decoration: InputDecoration(
               filled: true,
-              fillColor: Color(0XFFF9F1BE),
+              fillColor: const Color(0XFFF9F1BE),
               hintText: "Klik untuk mencari",
-              prefixIcon: Icon(Icons.search, color: Colors.black),
+              prefixIcon: const Icon(Icons.search, color: Colors.black),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(25),
                 borderSide: BorderSide.none,

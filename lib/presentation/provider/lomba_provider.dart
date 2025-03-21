@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LombaProvider extends ChangeNotifier {
-  String _filter = 'semua';
+  String _filter = 'online';
 
   String get filter => _filter;
 
@@ -14,6 +14,7 @@ class LombaProvider extends ChangeNotifier {
       'date': DateTime(2025, 7, 8),
       'status': 'Luring/Offline',
       'isOnline': false,
+      'category': 'Teknologi',
       'timeline': [
         'Pendaftaran: 1 Mei - 30 Juni 2025',
         'Babak Penyisihan: 8 Juli 2025',
@@ -30,6 +31,7 @@ class LombaProvider extends ChangeNotifier {
       'date': DateTime(2025, 10, 12),
       'status': 'Luring/Offline',
       'isOnline': false,
+      'category': 'Robotika',
       'timeline': [
         'Registrasi: 1 Juli - 30 Agustus 2025',
         'Final: 12 Oktober 2025',
@@ -49,6 +51,7 @@ class LombaProvider extends ChangeNotifier {
       'date': DateTime(2025, 3, 25),
       'status': 'Online',
       'isOnline': true,
+      'category': 'Data Science',
       'timeline': [
         'Pendaftaran: 1 Maret - 20 Maret 2025',
         'Hackathon: 25 Maret 2025',
@@ -68,6 +71,7 @@ class LombaProvider extends ChangeNotifier {
       'date': DateTime(2025, 3, 15),
       'status': 'Online',
       'isOnline': true,
+      'category': 'Desain',
       'timeline': [
         'Pendaftaran: 1 Februari - 10 Maret 2025',
         'Final: 15 Maret 2025',
@@ -86,12 +90,14 @@ class LombaProvider extends ChangeNotifier {
   }
 
   List<Map<String, dynamic>> getFilteredLombaList(DateTime currentDate) {
-    if (_filter == 'terdekat') {
-      return _lombaList.where((lomba) {
-        final difference = lomba['date'].difference(currentDate).inDays;
-        return difference <= 30 && difference >= 0;
-      }).toList();
+    List<Map<String, dynamic>> filteredList = _lombaList;
+
+    if (_filter == 'online') {
+      filteredList = _lombaList.where((lomba) => lomba['isOnline']).toList();
+    } else if (_filter == 'offline') {
+      filteredList = _lombaList.where((lomba) => !lomba['isOnline']).toList();
     }
-    return _lombaList;
+
+    return filteredList;
   }
 }

@@ -29,7 +29,11 @@ class _LombaDetailPageState extends State<LombaDetailPage> {
         width: double.infinity,
         fit: BoxFit.cover,
         errorBuilder: (context, error, stackTrace) {
-          return const Icon(Icons.image_not_supported, size: 100, color: Colors.grey);
+          return const Icon(
+            Icons.image_not_supported,
+            size: 100,
+            color: Colors.grey,
+          );
         },
       );
     }
@@ -118,7 +122,9 @@ class _LombaDetailPageState extends State<LombaDetailPage> {
                   ),
                 ),
                 crossFadeState:
-                    isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                    isExpanded
+                        ? CrossFadeState.showSecond
+                        : CrossFadeState.showFirst,
               ),
               const SizedBox(height: 16),
               if (widget.lomba['additionalInfo'] != null) ...[
@@ -135,10 +141,11 @@ class _LombaDetailPageState extends State<LombaDetailPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MatchGroupLomba(
-                        imagePath: widget.lomba['imagePath'],
-                        title: widget.lomba['title'],
-                      ),
+                      builder:
+                          (context) => MatchGroupLomba(
+                            lombaData:
+                                widget.lomba, // Mengirim semua data lomba
+                          ),
                     ),
                   );
                 },
