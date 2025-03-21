@@ -1,4 +1,4 @@
-import 'package:competify_app/presentation/pages/matching/succes_page.dart';
+import 'package:competify_app/presentation/pages/event/team/succes_page.dart';
 import 'package:competify_app/presentation/provider/DatabaseMethods.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';

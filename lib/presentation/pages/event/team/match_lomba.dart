@@ -1,5 +1,5 @@
-import 'package:competify_app/presentation/pages/matching/create_match.dart';
-import 'package:competify_app/presentation/pages/matching/widgets/match_button.dart';
+import 'package:competify_app/presentation/pages/event/team/create_match.dart';
+import 'package:competify_app/presentation/pages/event/team/widgets/match_button.dart';
 import 'package:flutter/material.dart';
 
 class MatchGroupLomba extends StatelessWidget {

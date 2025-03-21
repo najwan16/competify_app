@@ -14,20 +14,23 @@ class AuthController {
     BuildContext context,
   ) async {
     try {
+      // Menampilkan loading
+      _showLoading(context, "Masuk...");
+
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
       if (userCredential.user != null) {
-        // Ambil username dari Firestore
         DocumentSnapshot userDoc = await _firestore.collection('users').doc(userCredential.user!.uid).get();
         String username = userDoc.exists ? userDoc.get('username') : 'User';
 
-        // Navigasi ke HomePage dengan username
-        Navigator.pushReplacement(
+        // Navigasi ke HomePage tanpa kembali ke login
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => HomePage()),
+          (route) => false,
         );
       }
     } on FirebaseAuthException catch (e) {
@@ -43,28 +46,37 @@ class AuthController {
     BuildContext context,
   ) async {
     try {
+      // Menampilkan loading
+      _showLoading(context, "Mendaftar...");
+
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
       if (userCredential.user != null) {
-        // Simpan data ke Firestore
         await _firestore.collection('users').doc(userCredential.user!.uid).set({
           'username': username,
           'email': email,
           'createdAt': FieldValue.serverTimestamp(),
         });
 
-        // Navigasi ke HomePage dengan username
-        Navigator.pushReplacement(
+        // Navigasi ke HomePage tanpa kembali ke login
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => HomePage()),
+          (route) => false,
         );
       }
     } on FirebaseAuthException catch (e) {
       _showError(e, context);
     }
+  }
+
+  /// 🔹 Logout User
+  static Future<void> signOut(BuildContext context) async {
+    await _auth.signOut();
+    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
   }
 
   /// 🔹 Menampilkan Error
@@ -77,6 +89,25 @@ class AuthController {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(errorMessage)),
+    );
+  }
+
+  /// 🔹 Menampilkan Loading Dialog
+  static void _showLoading(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 20),
+              Text(message),
+            ],
+          ),
+        );
+      },
     );
   }
 }

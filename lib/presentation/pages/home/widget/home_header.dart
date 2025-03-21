@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomeHeader extends StatelessWidget {
-  final String username; // Tambahkan parameter username
+  final String username;
 
   const HomeHeader({super.key, required this.username});
 
@@ -30,7 +30,7 @@ class HomeHeader extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        username, // Menggunakan username yang dinamis
+                        username,
                         style: const TextStyle(
                           color: Color(0XFFF9F1BE),
                           fontSize: 14,

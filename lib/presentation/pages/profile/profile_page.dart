@@ -1,3 +1,5 @@
+import 'package:competify_app/presentation/pages/auth/auth_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -13,8 +15,8 @@ class ProfilePage extends StatelessWidget {
               clipBehavior: Clip.none,
               alignment: Alignment.bottomCenter,
               children: [
-                Container(color: Color(0xFF464D81), height: 150),
-                Positioned(
+                Container(color: const Color(0xFF464D81), height: 150),
+                const Positioned(
                   bottom: -50,
                   child: CircleAvatar(
                     radius: 60,
@@ -29,16 +31,14 @@ class ProfilePage extends StatelessWidget {
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 23),
-
             _buildExperienceSection("Work Experience"),
             _buildExperienceSection("Organization Experience"),
-
             _buildExperienceLevelSection(),
             _buildExperienceDocument("CV"),
             _buildExperienceDocument("Portofolio"),
             _buildExperienceDocument("Account configuration"),
             _buildExperienceDocument("Contact Support"),
-            _buildExperienceDocument("Log Out"),
+            _buildLogoutButton(context),
           ],
         ),
       ),
@@ -51,7 +51,6 @@ class ProfilePage extends StatelessWidget {
         const Divider(),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 40),
-          decoration: const BoxDecoration(),
           child: ListTile(
             contentPadding: EdgeInsets.zero,
             title: Text(
@@ -82,33 +81,16 @@ class ProfilePage extends StatelessWidget {
         const Divider(),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 40),
-          margin: EdgeInsets.only(top: 24),
+          margin: const EdgeInsets.only(top: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Experience level",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                  ),
-                  // ElevatedButton.icon(
-                  //   onPressed: () {},
-                  //   icon: const Icon(Icons.add, size: 24),
-                  //   label: const Text("Add"),
-                  //   style: ElevatedButton.styleFrom(
-                  //     backgroundColor: Color(0XFFC6C8D8),
-                  //     foregroundColor: Color(0XFF2B2B2B),
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(40),
-                  //     ),
-                  //   ),
-                  // ),
-                ],
+            children: const [
+              Text(
+                "Experience level",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
               ),
-              const Text("You can add some certificate"),
-              const Divider(),
+              Text("You can add some certificate"),
+              Divider(),
             ],
           ),
         ),
@@ -135,6 +117,63 @@ class ProfilePage extends StatelessWidget {
           const Divider(),
         ],
       ),
+    );
+  }
+
+  Widget _buildLogoutButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40),
+      child: Column(
+        children: [
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            title: const Text(
+              "Log Out",
+              style: TextStyle(fontWeight: FontWeight.w500, color: Colors.red),
+            ),
+            trailing: IconButton(
+              icon: const Icon(Icons.logout, color: Colors.red),
+              onPressed: () => _showLogoutConfirmationDialog(context),
+            ),
+          ),
+          const Divider(),
+        ],
+      ),
+    );
+  }
+
+  void _showLogoutConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Confirm Log Out"),
+          content: const Text("Are you sure you want to log out?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(context); // Tutup dialog
+                await FirebaseAuth.instance.signOut(); // Logout dari Firebase
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => AuthPage()),
+                  (route) => false, // Menghapus semua halaman sebelumnya
+                );
+              },
+              child: const Text(
+                "Log Out",
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

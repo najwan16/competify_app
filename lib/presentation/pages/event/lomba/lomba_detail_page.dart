@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:competify_app/presentation/pages/matching/match_lomba.dart';
+import 'package:competify_app/presentation/pages/event/team/match_lomba.dart';
 
 class LombaDetailPage extends StatefulWidget {
   final Map<String, dynamic> lomba;
