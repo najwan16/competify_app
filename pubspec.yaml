@@ -41,6 +41,8 @@ dependencies:
   introduction_screen: ^3.1.17
   cloud_firestore: ^5.6.5
   fluttertoast: ^8.2.12
+  fl_chart: ^0.63.0
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -67,12 +69,16 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/image/
+    - assets/image/progress.png
     - assets/image/compe.png
     - assets/image/poster.jpg
     - assets/image/person.jpg
     - assets/image/start1.png
     - assets/image/start2.png
     - assets/image/start3.png
+    - assets/image/update1.png
+    - assets/image/update2.png
+
   
     - assets/icons/Facebook.png
     - assets/icons/Google.png

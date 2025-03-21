@@ -1,4 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:competify_app/presentation/pages/home/widget/daily.dart';
+import 'package:competify_app/presentation/pages/home/widget/dateline.dart';
+import 'package:competify_app/presentation/pages/home/widget/overall.dart';
+import 'package:competify_app/presentation/pages/home/widget/schedule.dart';
+import 'package:competify_app/presentation/pages/home/widget/update.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:competify_app/presentation/pages/event/event_page.dart';
@@ -28,7 +33,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _fetchUsername() async {
     User? user = FirebaseAuth.instance.currentUser;
-    if (user == null) return; 
+    if (user == null) return;
 
     try {
       DocumentSnapshot userDoc =
@@ -96,15 +101,15 @@ class HomePageContent extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const CompetifyUpdate(),
                 const SizedBox(height: 15),
-                const Text(
-                  "Competify Update",
-                  style: TextStyle(
-                    fontSize: 21,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
+                OverallProgress(),
+                const SizedBox(height: 15),
+                // DailyProgressWidget(),
+                SizedBox(height: 15),
+                // const DatelineWidget(),
+                const SizedBox(height: 15),
+                ScheduleMentoring(),
                 const SizedBox(height: 15),
                 const Text(
                   "Rekomendasi Event",

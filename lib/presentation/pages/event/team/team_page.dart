@@ -40,10 +40,6 @@ class TeamPage extends StatelessWidget {
                       var group = snapshot.data!.docs[index];
                       return TeamCard(
                         namaGrup: group["Nama Grup"] ?? "Tanpa Nama",
-                        deskripsi: group["Deskripsi"] ?? "Tidak ada deskripsi",
-                        keterampilan: group["Kategori"] ?? "Tidak ada kategori",
-                        jumlahOrang: group["Jumlah Partisipan"] ?? 0,
-                        gambarUrl: group["Gambar"] ?? "",
                       );
                     },
                   );
@@ -59,76 +55,33 @@ class TeamPage extends StatelessWidget {
 
 class TeamCard extends StatelessWidget {
   final String namaGrup;
-  final String deskripsi;
-  final String keterampilan;
-  final int jumlahOrang;
-  final String gambarUrl;
 
   const TeamCard({
     super.key,
     required this.namaGrup,
-    required this.deskripsi,
-    required this.keterampilan,
-    required this.jumlahOrang,
-    required this.gambarUrl,
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            gambarUrl.isNotEmpty
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(gambarUrl, height: 150, width: double.infinity, fit: BoxFit.cover),
-                  )
-                : Container(height: 150, color: Colors.grey[300], child: const Icon(Icons.image, size: 50)),
-            const SizedBox(height: 10),
-            Text(
-              namaGrup,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 5),
-            Text(deskripsi, style: const TextStyle(fontSize: 14)),
-            const SizedBox(height: 5),
-            Row(
-              children: [
-                const Icon(Icons.work, size: 18),
-                const SizedBox(width: 5),
-                Text(keterampilan, style: const TextStyle(fontSize: 14)),
-              ],
-            ),
-            const SizedBox(height: 5),
-            Row(
-              children: [
-                const Icon(Icons.people, size: 18),
-                const SizedBox(width: 5),
-                Text("$jumlahOrang Orang", style: const TextStyle(fontSize: 14)),
-              ],
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.yellow[700],
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                ),
-                child: const Text("Gabung"),
-              ),
-            ),
-          ],
+      child: ListTile(
+        title: Text(
+          namaGrup,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        trailing: ElevatedButton(
+          onPressed: () {
+            // Tambahkan fungsi untuk join tim di sini
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.yellow[700],
+            foregroundColor: Colors.black,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          ),
+          child: const Text("Gabung"),
         ),
       ),
     );
