@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:competify_app/presentation/pages/matching/match_lomba.dart';
 
 class LombaDetailPage extends StatefulWidget {
   final Map<String, dynamic> lomba;
@@ -63,7 +64,6 @@ class _LombaDetailPageState extends State<LombaDetailPage> {
                 ),
               ),
               const SizedBox(height: 16),
-
               GestureDetector(
                 onTap: () {
                   setState(() {
@@ -91,7 +91,6 @@ class _LombaDetailPageState extends State<LombaDetailPage> {
                   ),
                 ),
               ),
-
               AnimatedCrossFade(
                 duration: const Duration(milliseconds: 300),
                 firstChild: const SizedBox.shrink(),
@@ -105,7 +104,7 @@ class _LombaDetailPageState extends State<LombaDetailPage> {
                           "Timeline:",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        ...timeline.map((item) => Text("- $item")).toList(),
+                        ...timeline.map((item) => Text("- $item")),
                         const SizedBox(height: 8),
                       ],
                       if (rules.isNotEmpty) ...[
@@ -113,7 +112,7 @@ class _LombaDetailPageState extends State<LombaDetailPage> {
                           "Ketentuan:",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        ...rules.map((rule) => Text("- $rule")).toList(),
+                        ...rules.map((rule) => Text("- $rule")),
                       ],
                     ],
                   ),
@@ -121,9 +120,7 @@ class _LombaDetailPageState extends State<LombaDetailPage> {
                 crossFadeState:
                     isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
               ),
-
               const SizedBox(height: 16),
-
               if (widget.lomba['additionalInfo'] != null) ...[
                 const Text(
                   "Informasi Tambahan",
@@ -132,6 +129,21 @@ class _LombaDetailPageState extends State<LombaDetailPage> {
                 const SizedBox(height: 8),
                 Text(widget.lomba['additionalInfo']),
               ],
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MatchGroupLomba(
+                        imagePath: widget.lomba['imagePath'],
+                        title: widget.lomba['title'],
+                      ),
+                    ),
+                  );
+                },
+                child: const Text("Match Group"),
+              ),
             ],
           ),
         ),
