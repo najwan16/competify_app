@@ -15,16 +15,18 @@ class _RegisterFormState extends State<RegisterForm> {
   final confirmPasswordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool isLoading = false;
-  bool _isPasswordVisible = false;
+  bool isPasswordVisible = false;
+  bool isConfirmPasswordVisible = false;
 
   Future<void> _submit() async {
     if (!formKey.currentState!.validate()) return;
     FocusScope.of(context).unfocus();
 
-    if (passwordController.text.trim() != confirmPasswordController.text.trim()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Passwords do not match')),
-      );
+    if (passwordController.text.trim() !=
+        confirmPasswordController.text.trim()) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Passwords do not match')));
       return;
     }
 
@@ -43,17 +45,19 @@ class _RegisterFormState extends State<RegisterForm> {
     return Form(
       key: formKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormField(
             controller: usernameController,
             decoration: InputDecoration(
-              hintText: 'Username',
+              hintText: 'Nama Pengguna',
               prefixIcon: const Icon(Icons.person),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            validator: (value) => value!.isEmpty ? 'Enter your username' : null,
+            validator:
+                (value) => value!.isEmpty ? 'Masukkan nama pengguna' : null,
           ),
           const SizedBox(height: 15),
           TextFormField(
@@ -65,57 +69,72 @@ class _RegisterFormState extends State<RegisterForm> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            validator: (value) => value!.isEmpty ? 'Enter your email' : null,
+            validator: (value) => value!.isEmpty ? 'Masukkan email' : null,
           ),
           const SizedBox(height: 15),
           TextFormField(
             controller: passwordController,
-            obscureText: !_isPasswordVisible,
+            obscureText: !isPasswordVisible,
             decoration: InputDecoration(
-              hintText: 'Password',
-              prefixIcon: const Icon(Icons.lock_open),
+              hintText: 'Kata Sandi',
+              prefixIcon: const Icon(Icons.lock),
               suffixIcon: IconButton(
                 icon: Icon(
-                  _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  isPasswordVisible ? Icons.visibility : Icons.visibility_off,
                 ),
-                onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
+                onPressed:
+                    () =>
+                        setState(() => isPasswordVisible = !isPasswordVisible),
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            validator: (value) => value!.length < 6 ? 'Password must be at least 6 characters' : null,
+            validator:
+                (value) => value!.length < 6 ? 'Minimal 6 karakter' : null,
           ),
           const SizedBox(height: 15),
           TextFormField(
             controller: confirmPasswordController,
-            obscureText: !_isPasswordVisible,
+            obscureText: !isConfirmPasswordVisible,
             decoration: InputDecoration(
-              hintText: 'Confirm Password',
+              hintText: 'Konfirmasi Kata Sandi',
               prefixIcon: const Icon(Icons.lock_outline),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  isConfirmPasswordVisible
+                      ? Icons.visibility
+                      : Icons.visibility_off,
+                ),
+                onPressed:
+                    () => setState(
+                      () =>
+                          isConfirmPasswordVisible = !isConfirmPasswordVisible,
+                    ),
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            validator: (value) => value!.isEmpty ? 'Confirm your password' : null,
+            validator:
+                (value) => value!.isEmpty ? 'Konfirmasi kata sandi' : null,
           ),
           const SizedBox(height: 20),
           isLoading
-              ? const CircularProgressIndicator()
-              : ElevatedButton(
+              ? const Center(child: CircularProgressIndicator())
+              : SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0XFF464D81),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 12,
-                      horizontal: 32,
-                    ),
+                    backgroundColor: Colors.indigo[900],
+                    padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                   onPressed: _submit,
                   child: const Text(
-                    'REGISTER',
+                    'Daftar',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -123,6 +142,8 @@ class _RegisterFormState extends State<RegisterForm> {
                     ),
                   ),
                 ),
+              ),
+          const SizedBox(height: 15),
         ],
       ),
     );

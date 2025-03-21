@@ -67,7 +67,7 @@ class OnBoardingScreen extends StatelessWidget {
                             onboardingItems[controller.currentPage].subtitle,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
-                              color: Color(0XFFF9F1BE),
+                              color: Color(0XFF464D81),
                               fontSize: 15,
                               fontWeight: FontWeight.w500,
                             ),
@@ -117,9 +117,9 @@ class OnBoardingScreen extends StatelessWidget {
                                         onboardingItems.length - 1
                                     ? "Mulai"
                                     : "Lanjut",
-                                style:GoogleFonts.poppins(
-                                  color: Color(0XFFF9F1BE),
-                                  fontSize: 36,
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontSize: 17,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

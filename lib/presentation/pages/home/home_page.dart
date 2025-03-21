@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:competify_app/presentation/pages/home/widget/daily.dart';
-import 'package:competify_app/presentation/pages/home/widget/dateline.dart';
 import 'package:competify_app/presentation/pages/home/widget/overall.dart';
 import 'package:competify_app/presentation/pages/home/widget/schedule.dart';
 import 'package:competify_app/presentation/pages/home/widget/update.dart';

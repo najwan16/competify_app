@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'register_form.dart'; // Import halaman register
 import '../../../services/auth_controller.dart';
 
 class LoginForm extends StatefulWidget {
@@ -76,7 +77,7 @@ class _LoginFormState extends State<LoginForm> {
               ? const CircularProgressIndicator()
               : ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0XFF464D81),
+                  backgroundColor: const Color(0XFF464D81),
                   padding: const EdgeInsets.symmetric(
                     vertical: 12,
                     horizontal: 32,
@@ -95,6 +96,7 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
               ),
+          const SizedBox(height: 15),
         ],
       ),
     );
